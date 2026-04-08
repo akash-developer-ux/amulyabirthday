@@ -57,15 +57,41 @@ button {
 /* Birthday Text */
 #birthdayMsg {
     display: none;
-    font-size: 28px;
     margin-top: 20px;
-    animation: glow 2s infinite alternate;
+}
+
+/* Fancy Text */
+.fancyText {
+    font-size: 30px;
+    font-weight: bold;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+/* From Text */
+.fromText {
+    margin-top: 20px;
+    font-size: 22px;
+    opacity: 0;
+    animation: slideUp 2s ease forwards;
+    animation-delay: 2s;
 }
 
 /* Glow Animation */
 @keyframes glow {
     from { text-shadow: 0 0 10px white; }
     to { text-shadow: 0 0 25px #fff, 0 0 40px pink; }
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Slide animation */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Hearts */
@@ -101,8 +127,15 @@ button {
     <button id="btn" onclick="showSurprise()">Surprise 🎁</button>
 
     <div id="birthdayMsg">
-        🎉 Happy Birthday AMULYA 💖 🎉<br>
-        ✨ Stay Happy Always ✨
+        <div class="fancyText">
+            Happy Birthday to someone truly special ✨<br>
+            Stay amazing always 💖
+        </div>
+
+        <div class="fromText">
+            — Wishing you,from Sampath 💖 💫<br>
+             
+        </div>
     </div>
 </div>
 
@@ -125,20 +158,18 @@ function check() {
     }
 }
 
-// SHOW SURPRISE (FIXED MUSIC)
+// SHOW SURPRISE
 function showSurprise() {
     document.getElementById("birthdayMsg").style.display = "block";
 
     let music = document.getElementById("music");
 
-    // Safe play (fix)
     music.play().then(() => {
         console.log("Music started 🎵");
     }).catch(() => {
         alert("Tap again to play music 🎵");
     });
 
-    // Hide button after click
     document.getElementById("btn").style.display = "none";
 }
 
@@ -161,6 +192,7 @@ function createHeart() {
 }
 
 setInterval(createHeart, 250);
+
 document.body.addEventListener("click", function () {
     let music = document.getElementById("music");
     music.play().catch(()=>{});
