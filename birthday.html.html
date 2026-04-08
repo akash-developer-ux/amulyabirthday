@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    overflow: hidden;
+}
+
+/* Center */
+.center {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+/* Screens */
+#lockScreen, #mainScreen {
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ff99ac);
+    color: white;
+}
+
+/* Hide main */
+#mainScreen {
+    display: none;
+}
+
+/* Input */
+input {
+    padding: 12px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+/* Button */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #ff4d6d;
+    margin-top: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Birthday Text */
+#birthdayMsg {
+    display: none;
+    font-size: 28px;
+    margin-top: 20px;
+    animation: glow 2s infinite alternate;
+}
+
+/* Glow Animation */
+@keyframes glow {
+    from { text-shadow: 0 0 10px white; }
+    to { text-shadow: 0 0 25px #fff, 0 0 40px pink; }
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    bottom: -10px;
+    animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="lockScreen" class="center">
+    <h1>Hey! Amulya I Have A Surprise For You 💖</h1>
+    <input type="password" id="pass" placeholder="💗">
+    <br>
+    <button onclick="check()">Unlock 🔓</button>
+</div>
+
+<!-- MAIN SCREEN -->
+<div id="mainScreen" class="center">
+    <h1>Hey ❤️</h1>
+    <p>Click for your surprise 😍</p>
+
+    <button id="btn" onclick="showSurprise()">Surprise 🎁</button>
+
+    <div id="birthdayMsg">
+        🎉 Happy Birthday AMULYA 💖 🎉<br>
+        ✨ Stay Happy Always ✨
+    </div>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+    <source src="dhun.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// PASSWORD CHECK
+function check() {
+    let p = document.getElementById("pass").value.trim();
+
+    if (p === "💗") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("mainScreen").style.display = "block";
+    } else {
+        alert("Wrong Password 😢");
+    }
+}
+
+// SHOW SURPRISE (FIXED MUSIC)
+function showSurprise() {
+    document.getElementById("birthdayMsg").style.display = "block";
+
+    let music = document.getElementById("music");
+
+    // Safe play (fix)
+    music.play().then(() => {
+        console.log("Music started 🎵");
+    }).catch(() => {
+        alert("Tap again to play music 🎵");
+    });
+
+    // Hide button after click
+    document.getElementById("btn").style.display = "none";
+}
+
+// HEART ANIMATION
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+
+    const emojis = ["💖","💘","💕","💞","😍"];
+    heart.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(createHeart, 250);
+document.body.addEventListener("click", function () {
+    let music = document.getElementById("music");
+    music.play().catch(()=>{});
+}, { once: true });
+
+</script>
+
+</body>
+</html>
